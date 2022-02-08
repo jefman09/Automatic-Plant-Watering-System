@@ -1,3 +1,4 @@
+
 int blue = 0;  // for incoming serial data
 int moisture_sensor  = A0;
 int moisture;
@@ -6,6 +7,7 @@ int pump = 3;
 int led = 13;
 int pump_time = 3000;
 unsigned long time_now = 0;
+unsigned long millismaxval = 4000000000;      //4,294,967,295
 
 void setup()
 {
@@ -41,6 +43,10 @@ void loop()
       break;
     }
   }
+  if(millis() >= millismaxval){
+    unsigned long millis = 0;
+    time_now = 1;
+    } 
 }
 
 int Bluetooth()
@@ -100,6 +106,9 @@ void Pump(int stat)
    
                //Run other code
   ********************************************************************** REFERENCE ONLY ***************************************************************
+  
+  https://www.norwegiancreations.com/2018/10/arduino-tutorial-avoiding-the-overflow-issue-when-using-millis-and-micros/
+  
   */
   }
 }
