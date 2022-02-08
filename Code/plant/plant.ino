@@ -8,6 +8,7 @@ int led = 13;
 int pump_time = 3000;
 unsigned long time_now = 0;
 unsigned long millismaxval = 4000000000;      //4,294,967,295
+extern volatile unsigned long timer0_millis;
 
 void setup()
 {
@@ -44,8 +45,11 @@ void loop()
     }
   }
   if(millis() >= millismaxval){
-    unsigned long millis = 0;
-    time_now = 1;
+   // unsigned long millis = 0; I dont know if it works
+    time_now = 0;
+    noInterrupts ();
+    timer0_millis = 0;
+    interrupts ();
     } 
 }
 
