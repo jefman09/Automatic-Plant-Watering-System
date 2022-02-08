@@ -82,6 +82,7 @@ void Pump(int stat)
  
   
   /* ********************************************************************** REFERENCE ONLY ***************************************************************
+  from https://www.norwegiancreations.com/2017/09/arduino-tutorial-using-millis-instead-of-delay/
   int period = 1000;
 unsigned long time_now = 0;
  
