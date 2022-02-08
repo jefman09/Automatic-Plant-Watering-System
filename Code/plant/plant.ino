@@ -5,6 +5,8 @@ int limit = 500;
 int pump = 3;
 int led = 13;
 int pump_time = 3000;
+unsigned long time_now = 0;
+
 void setup()
 {
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
@@ -82,22 +84,22 @@ void Pump(int stat)
  
   
   /* ********************************************************************** REFERENCE ONLY ***************************************************************
-  from https://www.norwegiancreations.com/2017/09/arduino-tutorial-using-millis-instead-of-delay/
-  int period = 1000;
-unsigned long time_now = 0;
+             from https://www.norwegiancreations.com/2017/09/arduino-tutorial-using-millis-instead-of-delay/
+             int period = 1000;
+             unsigned long time_now = 0;
  
-void setup() {
-    Serial.begin(115200);
-}
+             void setup() {
+             Serial.begin(115200);
+             }
  
-void loop() {
-    if(millis() >= time_now + period){
-        time_now += period;
-        Serial.println("Hello");
-    }
+             void loop() {
+             if(millis() >= time_now + period){
+             time_now += period;
+             Serial.println("Hello");
+              }
    
-    //Run other code
+               //Run other code
   ********************************************************************** REFERENCE ONLY ***************************************************************
   */
+  }
 }
-
