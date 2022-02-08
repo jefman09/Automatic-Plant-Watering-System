@@ -74,7 +74,29 @@ void Pump(int stat)
     digitalWrite(pump,stat);
     digitalWrite(led,stat);
     Serial.println("Pump ON");
-    delay(pump_time);
+    // delay(pump_time); replace with millis instead of delay for preparation for LCD to function well
+    if(millis() >= time_now + pump_time){
+        time_now += pump_time;
+    // run LCD print code here
   }
+ 
+  
+  /* ********************************************************************** REFERENCE ONLY ***************************************************************
+  int period = 1000;
+unsigned long time_now = 0;
+ 
+void setup() {
+    Serial.begin(115200);
+}
+ 
+void loop() {
+    if(millis() >= time_now + period){
+        time_now += period;
+        Serial.println("Hello");
+    }
+   
+    //Run other code
+  ********************************************************************** REFERENCE ONLY ***************************************************************
+  */
 }
 
