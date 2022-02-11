@@ -1,3 +1,6 @@
+#include <LiquidCrystal.h>
+// Creates an LCD object. Parameters: (rs, enable, d4, d5, d6, d7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int blue = 0;  // for incoming serial data
 int moisture_sensor  = A0;
@@ -12,6 +15,9 @@ extern volatile unsigned long timer0_millis;
 
 void setup()
 {
+  lcd.begin(16, 2);
+  lcd.clear();
+  
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   pinMode(moisture_sensor,INPUT);
   pinMode(pump,OUTPUT);
@@ -21,10 +27,13 @@ void setup()
 void loop() 
 {
   moisture = analogRead(moisture_sensor);
-  Serial.print("Moisture=");
+  Serial.print("Moisture =");
   Serial.print(moisture);
   Serial.println();
-  
+  lcd.setCursor(0,0);
+  lcd.print ("Moisture =");
+  lcd.setCursor(11,0);
+  lcd.print (moisture);
   while(Bluetooth()==1)
   {
     Pump(1);
@@ -64,6 +73,11 @@ int Bluetooth()
     // say what you got:
     Serial.print("Bluetooth");
     Serial.println(blue);
+     lcd.clear();
+     lcd.setCursor(0,1);
+     lcd.print ("BT is ");
+     lcd.setCursor(5,1);
+     lcd.print (blue);
     if(blue == 48)
       return 0;
     if(blue == 49)
@@ -86,14 +100,21 @@ void Pump(int stat)
     digitalWrite(pump,stat);
     digitalWrite(led,stat);
     Serial.println("Pump ON");
-    // delay(pump_time); replace with millis instead of delay for preparation for LCD to function well
+    
+    // run LCD print code here
+    lcd.clear();
+    lcd.setCursor(9,1);
+    lcd.print ("Pump ON");
+    
+    // delay(pump_time); replace with millis instead of delay  to make bluetooth work well
     if(millis() >= time_now + pump_time){
         time_now += pump_time;
-    // run LCD print code here
+
+
   }
  
   
-  /* ********************************************************************** REFERENCE ONLY ***************************************************************
+  /* ********************************************************************** REFERENCE ONLY *******************************
              from https://www.norwegiancreations.com/2017/09/arduino-tutorial-using-millis-instead-of-delay/
              int period = 1000;
              unsigned long time_now = 0;
@@ -109,7 +130,7 @@ void Pump(int stat)
               }
    
                //Run other code
-  ********************************************************************** REFERENCE ONLY ***************************************************************
+  ********************************************************************** REFERENCE ONLY **********************************
   
   https://www.norwegiancreations.com/2018/10/arduino-tutorial-avoiding-the-overflow-issue-when-using-millis-and-micros/
   
